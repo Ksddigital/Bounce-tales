@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>Bounce Tales</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css?v=22">
+</head>
+
+<body>
+  <!-- Modern HUD & Menu Overlays -->
+  <div id="uiOverlay" class="ui-overlay active">
+    <!-- Nickname Registration Screen -->
+    <div id="screenNickname" class="menu-screen active">
+      <h1 class="glow-text">BOUNCE TALES</h1>
+      <p class="subtitle">ULTIMATE PACK</p>
+      <div class="input-group">
+        <label for="nicknameInput">ENTER PLAYER NAME</label>
+        <input type="text" id="nicknameInput" placeholder="BounceBaller" maxlength="12">
+      </div>
+      <button class="menu-btn primary" id="btnSaveNickname">CONFIRM</button>
+    </div>
+
+    <!-- Main Menu Screen -->
+    <div id="screenMainMenu" class="menu-screen">
+      <h1 class="glow-text">BOUNCE TALES</h1>
+      <p class="welcome-user" id="welcomeUser"></p>
+      <button class="menu-btn primary" id="btnPlayGame">PLAY GAME</button>
+      <button class="menu-btn" id="btnLevelSelect">SELECT LEVEL</button>
+      <button class="menu-btn" id="btnSettings">SETTINGS</button>
+      <button class="menu-btn" id="btnLeaderboard">LEADERBOARD</button>
+      <p class="menu-hints">&#9650; Jump &middot; E Fire &middot; I Shield &middot; F Fly</p>
+      <p class="menu-hints secret">&#9733; 3x Tap Jump = Unlock Fly &middot; Hold F 2s = Secret Warp &#9733;</p>
+    </div>
+
+    <!-- Level Select Screen -->
+    <div id="screenLevelSelect" class="menu-screen">
+      <h2 class="glow-text-sub">SELECT LEVEL</h2>
+      <div class="level-grid" id="levelGrid"></div>
+      <button class="menu-btn" id="btnBackToMenu">BACK</button>
+    </div>
+
+    <!-- Pause Screen -->
+    <div id="screenPause" class="menu-screen">
+      <h2 class="glow-text-sub" style="font-size:36px;margin-top:24px;">- PAUSED -</h2>
+      <button class="menu-btn primary" id="btnResume">RESUME</button>
+      <button class="menu-btn" id="btnPauseSettings">SETTINGS</button>
+      <button class="menu-btn" id="btnPauseQuit">MAIN MENU</button>
+    </div>
+
+    <!-- Settings Screen -->
+    <div id="screenSettings" class="menu-screen">
+      <h2 class="glow-text-sub">SETTINGS</h2>
+      <div class="settings-group">
+        <label for="sliderMusic">MUSIC VOLUME</label>
+        <div class="slider-row">
+          <input type="range" id="sliderMusic" min="0" max="100" value="70">
+          <span id="labelMusic">70%</span>
+        </div>
+      </div>
+      <div class="settings-group">
+        <label for="sliderSfx">SFX VOLUME</label>
+        <div class="slider-row">
+          <input type="range" id="sliderSfx" min="0" max="100" value="80">
+          <span id="labelSfx">80%</span>
+        </div>
+      </div>
+      <div class="settings-group check-group">
+        <label for="checkMute">MUTE ALL AUDIO</label>
+        <input type="checkbox" id="checkMute">
+      </div>
+      <button class="menu-btn primary" id="btnBackToMenuFromSettings">RESUME</button>
+      <button class="menu-btn" id="btnQuitToMainMenu" style="display: none;">MAIN MENU</button>
+    </div>
+
+    <!-- Leaderboard Screen -->
+    <div id="screenLeaderboard" class="menu-screen">
+      <h2 class="glow-text-sub">LEADERBOARD</h2>
+      <div class="leaderboard-list" id="leaderboardList"></div>
+      <button class="menu-btn" id="btnBackToMenuFromLeaderboard">BACK</button>
+    </div>
+
+    <!-- Level Complete Screen Overlay -->
+    <div id="screenLevelComplete" class="menu-screen popup">
+      <h2 class="glow-text-sub green">LEVEL COMPLETE!</h2>
+      <div class="stats-panel">
+        <p>PLAYER: <span id="statCompName"></span></p>
+        <p>SCORE: <span id="statCompScore"></span></p>
+        <p>EGGS: <span id="statCompEggs"></span></p>
+      </div>
+      <button class="menu-btn primary" id="btnNextLevel">NEXT LEVEL</button>
+      <button class="menu-btn" id="btnMenuFromComplete">MAIN MENU</button>
+    </div>
+
+    <!-- Game Over Screen Overlay -->
+    <div id="screenGameOver" class="menu-screen popup">
+      <h2 class="glow-text-sub red">GAME OVER</h2>
+      <div class="stats-panel">
+        <p>PLAYER: <span id="statOverName"></span></p>
+        <p>FINAL SCORE: <span id="statOverScore"></span></p>
+      </div>
+      <button class="menu-btn primary" id="btnRetryLevel">RETRY LEVEL</button>
+      <button class="menu-btn" id="btnMenuFromOver">MAIN MENU</button>
+    </div>
+
+    <!-- Game Win Screen Overlay -->
+    <div id="screenGameWin" class="menu-screen popup green">
+      <h1 class="glow-text">CONGRATULATIONS!</h1>
+      <p class="subtitle">YOU BEAT THE GAME!</p>
+      <div class="stats-panel">
+        <p>CHAMPION: <span id="statWinName"></span></p>
+        <p>TOTAL SCORE: <span id="statWinScore"></span></p>
+        <p>TOTAL EGGS: <span id="statWinEggs"></span></p>
+      </div>
+      <button class="menu-btn primary" id="btnMenuFromWin">MAIN MENU</button>
+    </div>
+  </div>
+
+  <canvas id="gameCanvas"></canvas>
+  <button class="touch-btn" id="btnLeft">&#9664;</button>
+  <button class="touch-btn" id="btnRight">&#9654;</button>
+  <button class="touch-btn" id="btnJump">&#9650;</button>
+  <button class="touch-btn skill-btn" id="btnFire">E</button>
+  <button class="touch-btn skill-btn" id="btnShield">I</button>
+  <button class="touch-btn skill-btn" id="btnFly">F</button>
+  <script src="js/constants.js?v=22"></script>
+  <script src="js/audio.js?v=22"></script>
+  <script src="js/player.js?v=22"></script>
+  <script src="js/level.js?v=22"></script>
+  <script src="js/engine.js?v=22"></script>
+  <script src="js/main.js?v=22"></script>
+</body>
+
+</html>
