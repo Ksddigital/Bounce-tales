@@ -47,6 +47,8 @@ class Game {
       phase: Math.random() * Math.PI * 2
     }));
     this.winFireworks = [];
+    this.lastFrameTime = performance.now();
+    this.targetFpsInterval = 1000 / 60;
 
     this.setupInput();
     this.setupTouch();
@@ -1699,8 +1701,15 @@ class Game {
   }
 
   loop() {
-    this.update();
-    this.draw();
     requestAnimationFrame(() => this.loop());
+
+    const now = performance.now();
+    const elapsed = now - this.lastFrameTime;
+
+    if (elapsed >= this.targetFpsInterval) {
+      this.lastFrameTime = now - (elapsed % this.targetFpsInterval);
+      this.update();
+      this.draw();
+    }
   }
 }
