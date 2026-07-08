@@ -74,7 +74,8 @@ class Level {
   }
 
   addParticles(x, y, color, count) {
-    for (let i = 0; i < count; i++) {
+    const finalCount = (typeof IS_MOBILE !== 'undefined' && IS_MOBILE) ? Math.ceil(count * 0.5) : count;
+    for (let i = 0; i < finalCount; i++) {
       this.particles.push({
         x, y,
         vx: (Math.random() - 0.5) * 6,

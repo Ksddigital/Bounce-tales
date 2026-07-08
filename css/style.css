@@ -464,6 +464,8 @@ canvas {
   }
   canvas {
     border-radius: 0;
+    box-shadow: none !important;
+    animation: none !important;
   }
 }
 
