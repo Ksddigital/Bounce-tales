@@ -391,6 +391,21 @@ class Game {
       btnFly.addEventListener('touchcancel', cancelHold);
     }
 
+    // HUD Pause Button
+    const btnHudPause = document.getElementById('btnHudPause');
+    if (btnHudPause) {
+      const handlePause = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        if (this.state === STATE_PLAYING) {
+          this.state = STATE_PAUSED;
+          this.showScreen(document.getElementById('screenPause'));
+        }
+      };
+      btnHudPause.addEventListener('touchstart', handlePause);
+      btnHudPause.addEventListener('click', handlePause);
+    }
+
     document.addEventListener('touchstart', (e) => {
       AUDIO.resume();
       if (this.state === STATE_MENU || this.state === STATE_LEVEL_COMPLETE || this.state === STATE_GAME_OVER || this.state === STATE_WIN) {
