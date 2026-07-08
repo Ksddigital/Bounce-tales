@@ -580,13 +580,15 @@ class Player {
 
     ctx.save();
 
-    if (this.flying) {
-      ctx.shadowColor = COLORS.fly;
-      ctx.shadowBlur = 20 + Math.sin(Date.now() * 0.01) * 8;
-    }
-    if (this.invulnerable) {
-      ctx.shadowColor = COLORS.invul;
-      ctx.shadowBlur = 15 + Math.sin(Date.now() * 0.02) * 10;
+    if (SHADOWS_ENABLED) {
+      if (this.flying) {
+        ctx.shadowColor = COLORS.fly;
+        ctx.shadowBlur = 20 + Math.sin(Date.now() * 0.01) * 8;
+      }
+      if (this.invulnerable) {
+        ctx.shadowColor = COLORS.invul;
+        ctx.shadowBlur = 15 + Math.sin(Date.now() * 0.02) * 10;
+      }
     }
 
     const color = this.drawColor;
@@ -668,8 +670,10 @@ class Player {
     if (this.shieldTimer > 0) {
       ctx.strokeStyle = 'rgba(41, 182, 246, 0.82)';
       ctx.lineWidth = 3;
-      ctx.shadowColor = '#29B6F6';
-      ctx.shadowBlur = 12 + Math.sin(Date.now() * 0.02) * 4;
+      if (SHADOWS_ENABLED) {
+        ctx.shadowColor = '#29B6F6';
+        ctx.shadowBlur = 12 + Math.sin(Date.now() * 0.02) * 4;
+      }
       ctx.beginPath();
       ctx.arc(0, 0, sr + 4, 0, Math.PI * 2);
       ctx.stroke();

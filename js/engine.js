@@ -2,6 +2,13 @@ class Game {
   constructor(canvas) {
     this.canvas = canvas;
     this.ctx = canvas.getContext('2d');
+    if (!SHADOWS_ENABLED) {
+      Object.defineProperty(this.ctx, 'shadowBlur', {
+        get: () => 0,
+        set: () => {},
+        configurable: true
+      });
+    }
     canvas.width = CANVAS_W;
     canvas.height = CANVAS_H;
 
@@ -265,8 +272,10 @@ class Game {
   }
 
   setupTouch() {
-    const btnLeft = document.getElementById('btnLeft');
-    const btnRight = document.getElementById('btnRight');
+    const btnLeft = document.getElementById('btnDpadLeft');
+    const btnRight = document.getElementById('btnDpadRight');
+    const btnUp = document.getElementById('btnDpadUp');
+    const btnDown = document.getElementById('btnDpadDown');
     const btnJump = document.getElementById('btnJump');
     const btnFire = document.getElementById('btnFire');
     const btnShield = document.getElementById('btnShield');
@@ -312,6 +321,10 @@ class Game {
     onTouch(btnLeft, 'ArrowLeft', false);
     onTouch(btnRight, 'ArrowRight', true);
     onTouch(btnRight, 'ArrowRight', false);
+    onTouch(btnUp, 'ArrowUp', true);
+    onTouch(btnUp, 'ArrowUp', false);
+    onTouch(btnDown, 'ArrowDown', true);
+    onTouch(btnDown, 'ArrowDown', false);
     onTouch(btnJump, 'Space', true);
     onTouch(btnJump, 'Space', false);
     onTouchPress(btnFire, 'KeyE');

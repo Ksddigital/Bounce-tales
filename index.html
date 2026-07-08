@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css?v=22">
+  <link rel="stylesheet" href="css/style.css?v=23">
 </head>
 
 <body>
@@ -122,18 +122,40 @@
   </div>
 
   <canvas id="gameCanvas"></canvas>
-  <button class="touch-btn" id="btnLeft">&#9664;</button>
-  <button class="touch-btn" id="btnRight">&#9654;</button>
-  <button class="touch-btn" id="btnJump">&#9650;</button>
-  <button class="touch-btn skill-btn" id="btnFire">E</button>
-  <button class="touch-btn skill-btn" id="btnShield">I</button>
-  <button class="touch-btn skill-btn" id="btnFly">F</button>
-  <script src="js/constants.js?v=22"></script>
-  <script src="js/audio.js?v=22"></script>
-  <script src="js/player.js?v=22"></script>
-  <script src="js/level.js?v=22"></script>
-  <script src="js/engine.js?v=22"></script>
-  <script src="js/main.js?v=22"></script>
+
+  <!-- Console-style Touch Controller Overlay -->
+  <div id="touchController" class="touch-controller">
+    <!-- D-Pad (Left side) -->
+    <div class="dpad">
+      <button class="dpad-btn dpad-up" id="btnDpadUp">&#9650;</button>
+      <button class="dpad-btn dpad-left" id="btnDpadLeft">&#9664;</button>
+      <button class="dpad-btn dpad-right" id="btnDpadRight">&#9654;</button>
+      <button class="dpad-btn dpad-down" id="btnDpadDown">&#9660;</button>
+    </div>
+    
+    <!-- Action Buttons (Right side) -->
+    <div class="action-group">
+      <button class="action-btn action-shield" id="btnShield" title="Shield (I)">I</button>
+      <button class="action-btn action-fire" id="btnFire" title="Fire (E)">E</button>
+      <button class="action-btn action-fly" id="btnFly" title="Fly (F)">F</button>
+      <button class="action-btn action-jump" id="btnJump" title="Jump (Space)">JUMP</button>
+    </div>
+  </div>
+
+  <!-- Landscape Warning Screen -->
+  <div id="landscapeWarning" class="landscape-warning">
+    <div class="warning-content">
+      <div class="phone-icon">&#10227;</div>
+      <p class="warning-title">ROTATE TO LANDSCAPE</p>
+      <p class="warning-text">Please rotate your screen to landscape for the ultimate console layout!</p>
+    </div>
+  </div>
+  <script src="js/constants.js?v=23"></script>
+  <script src="js/audio.js?v=23"></script>
+  <script src="js/player.js?v=23"></script>
+  <script src="js/level.js?v=23"></script>
+  <script src="js/engine.js?v=23"></script>
+  <script src="js/main.js?v=23"></script>
 </body>
 
 </html>

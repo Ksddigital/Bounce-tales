@@ -446,18 +446,312 @@ canvas {
   float: right;
 }
 
-@media (pointer: coarse) {
-  .touch-btn { display: flex; }
-  canvas { border-radius: 0; }
+/* Touch Controller Overlay (Only shown on touch screens) */
+.touch-controller {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 90;
 }
 
-@media (max-width: 600px) {
-  .touch-btn { width: 64px; height: 64px; font-size: 22px; bottom: 20px; }
-  #btnLeft  { left: 12px; }
-  #btnRight { left: 86px; }
-  #btnJump  { right: 12px; }
-  .skill-btn { width: 48px; height: 48px; font-size: 14px; right: 8px; }
-  #btnShield { bottom: 280px; }
-  #btnFire   { bottom: 210px; }
-  #btnFly    { bottom: 140px; }
+@media (pointer: coarse) {
+  .touch-controller {
+    display: block;
+  }
+  canvas {
+    border-radius: 0;
+  }
+}
+
+/* D-pad styling */
+.dpad {
+  position: absolute;
+  bottom: 25px;
+  left: 35px;
+  width: 170px;
+  height: 170px;
+  background: rgba(15, 10, 25, 0.35);
+  border: 1.5px solid rgba(0, 229, 255, 0.15);
+  border-radius: 50%;
+  pointer-events: auto;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+/* Central circular ornament for D-pad */
+.dpad::before {
+  content: '';
+  position: absolute;
+  top: 50px;
+  left: 50px;
+  width: 70px;
+  height: 70px;
+  background: radial-gradient(circle, rgba(0, 229, 255, 0.1) 0%, rgba(15, 10, 25, 0.8) 70%);
+  border: 1px solid rgba(0, 229, 255, 0.12);
+  border-radius: 50%;
+}
+
+.dpad-btn {
+  position: absolute;
+  width: 52px;
+  height: 52px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8px;
+  cursor: pointer;
+  touch-action: none;
+  -webkit-tap-highlight-color: transparent;
+  transition: all 0.1s ease;
+}
+
+.dpad-btn:active, .dpad-btn.active {
+  background: rgba(0, 229, 255, 0.22);
+  border-color: rgba(0, 229, 255, 0.6);
+  color: #fff;
+  transform: scale(0.93);
+}
+
+.dpad-up {
+  top: 6px;
+  left: 59px;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.dpad-down {
+  bottom: 6px;
+  left: 59px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.dpad-left {
+  top: 59px;
+  left: 6px;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.dpad-right {
+  top: 59px;
+  right: 6px;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+/* Action Group */
+.action-group {
+  position: absolute;
+  bottom: 25px;
+  right: 35px;
+  width: 170px;
+  height: 170px;
+  background: rgba(15, 10, 25, 0.35);
+  border: 1.5px solid rgba(0, 229, 255, 0.15);
+  border-radius: 50%;
+  pointer-events: auto;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+.action-btn {
+  position: absolute;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 900;
+  font-size: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  touch-action: none;
+  -webkit-tap-highlight-color: transparent;
+  transition: all 0.1s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.action-btn:active, .action-btn.active {
+  transform: scale(0.88);
+}
+
+.action-shield {
+  top: 6px;
+  left: 61px;
+  background: rgba(255, 214, 0, 0.1);
+  border: 1.5px solid rgba(255, 214, 0, 0.4);
+  color: #FFD600;
+}
+.action-shield:active, .action-shield.active {
+  background: rgba(255, 214, 0, 0.3);
+  box-shadow: 0 0 15px rgba(255, 214, 0, 0.6);
+}
+
+.action-fire {
+  top: 61px;
+  left: 6px;
+  background: rgba(255, 109, 0, 0.1);
+  border: 1.5px solid rgba(255, 109, 0, 0.4);
+  color: #FF6D00;
+}
+.action-fire:active, .action-fire.active {
+  background: rgba(255, 109, 0, 0.3);
+  box-shadow: 0 0 15px rgba(255, 109, 0, 0.6);
+}
+
+.action-fly {
+  top: 61px;
+  right: 6px;
+  background: rgba(0, 229, 255, 0.1);
+  border: 1.5px solid rgba(0, 229, 255, 0.4);
+  color: #00E5FF;
+}
+.action-fly:active, .action-fly.active {
+  background: rgba(0, 229, 255, 0.3);
+  box-shadow: 0 0 15px rgba(0, 229, 255, 0.6);
+}
+
+.action-jump {
+  bottom: 6px;
+  left: 56px;
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, rgba(0, 230, 118, 0.2) 0%, rgba(0, 230, 118, 0.4) 100%);
+  border: 2px solid rgba(0, 230, 118, 0.7);
+  color: #fff;
+  font-size: 11px;
+}
+.action-jump:active, .action-jump.active {
+  background: rgba(0, 230, 118, 0.5);
+  box-shadow: 0 0 18px rgba(0, 230, 118, 0.8);
+}
+
+/* Landscape orientation warning */
+.landscape-warning {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(10, 5, 20, 0.95);
+  z-index: 1000;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 20px;
+}
+
+@media (pointer: coarse) and (orientation: portrait) {
+  .landscape-warning {
+    display: flex;
+  }
+}
+
+.warning-content {
+  animation: bounceWarning 2s ease-in-out infinite;
+}
+
+.phone-icon {
+  font-size: 64px;
+  color: #00E5FF;
+  margin-bottom: 20px;
+  text-shadow: 0 0 15px rgba(0, 229, 255, 0.5);
+  display: inline-block;
+  animation: rotatePhone 2.5s ease-in-out infinite;
+}
+
+.warning-title {
+  font-size: 20px;
+  font-weight: 900;
+  color: #fff;
+  letter-spacing: 2px;
+  margin-bottom: 10px;
+  text-shadow: 0 0 10px rgba(0, 229, 255, 0.5);
+}
+
+.warning-text {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.6;
+  max-width: 280px;
+  margin: 0 auto;
+}
+
+/* Extra style for menu hints */
+.menu-hints {
+  font-size: 9px;
+  color: rgba(255, 255, 255, 0.4);
+  letter-spacing: 1px;
+  margin-top: 15px;
+  line-height: 1.5;
+}
+
+.menu-hints.secret {
+  color: rgba(0, 229, 255, 0.5);
+  margin-top: 5px;
+}
+
+@keyframes rotatePhone {
+  0% { transform: rotate(0deg); }
+  50% { transform: rotate(-90deg); }
+  100% { transform: rotate(0deg); }
+}
+
+@keyframes bounceWarning {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+@media (max-width: 740px) {
+  .dpad {
+    width: 140px;
+    height: 140px;
+    bottom: 15px;
+    left: 20px;
+  }
+  .dpad::before {
+    top: 40px;
+    left: 40px;
+    width: 60px;
+    height: 60px;
+  }
+  .dpad-btn {
+    width: 44px;
+    height: 44px;
+    font-size: 16px;
+  }
+  .dpad-up { top: 4px; left: 48px; }
+  .dpad-down { bottom: 4px; left: 48px; }
+  .dpad-left { top: 48px; left: 4px; }
+  .dpad-right { top: 48px; right: 4px; }
+
+  .action-group {
+    width: 140px;
+    height: 140px;
+    bottom: 15px;
+    right: 20px;
+  }
+  .action-btn {
+    width: 40px;
+    height: 40px;
+    font-size: 14px;
+  }
+  .action-shield { top: 4px; left: 50px; }
+  .action-fire { top: 50px; left: 4px; }
+  .action-fly { top: 50px; right: 4px; }
+  .action-jump { bottom: 4px; left: 45px; width: 50px; height: 50px; font-size: 10px; }
 }

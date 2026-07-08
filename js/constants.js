@@ -86,3 +86,5 @@ const ENEMY_SPEED = 1.2;
 
 const KEYS = {};
 let FLY_CHEAT_UNLOCKED = localStorage.getItem('bt_fly_unlocked') === 'true';
+const IS_MOBILE = window.matchMedia('(pointer: coarse)').matches || /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+const SHADOWS_ENABLED = !IS_MOBILE;
