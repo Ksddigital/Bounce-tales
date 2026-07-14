@@ -410,8 +410,8 @@ class Game {
 
     document.addEventListener('touchstart', (e) => {
       AUDIO.resume();
-      if (this.state === STATE_MENU || this.state === STATE_LEVEL_COMPLETE || this.state === STATE_GAME_OVER || this.state === STATE_WIN) {
-        if (!e.target.closest('.touch-btn')) {
+      if (this.state === STATE_LEVEL_COMPLETE || this.state === STATE_GAME_OVER || this.state === STATE_WIN) {
+        if (!e.target.closest('button, input, a, .menu-btn')) {
           e.preventDefault();
           this.advanceState();
         }
